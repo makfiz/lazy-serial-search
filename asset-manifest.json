@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/lazy-serial-search/static/css/main.1672e613.css",
-    "main.js": "/lazy-serial-search/static/js/main.595f5519.js",
+    "main.js": "/lazy-serial-search/static/js/main.b71a934b.js",
     "index.html": "/lazy-serial-search/index.html",
     "main.1672e613.css.map": "/lazy-serial-search/static/css/main.1672e613.css.map",
-    "main.595f5519.js.map": "/lazy-serial-search/static/js/main.595f5519.js.map"
+    "main.b71a934b.js.map": "/lazy-serial-search/static/js/main.b71a934b.js.map"
   },
   "entrypoints": [
     "static/css/main.1672e613.css",
-    "static/js/main.595f5519.js"
+    "static/js/main.b71a934b.js"
   ]
 }
