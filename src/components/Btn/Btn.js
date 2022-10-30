@@ -1,9 +1,9 @@
 import { Button } from 'components/Btn/Btn.styled'
 
-const Btn = ({ children }) => {
+const Btn = ({ children, onClick}) => {
 
     return (
-        <Button>
+        <Button onClick={()=> onClick()}>
             {children}
         </Button>
     )
