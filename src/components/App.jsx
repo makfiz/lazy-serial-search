@@ -7,27 +7,40 @@ import {useState, useEffect} from "react";
 
 export const App = () => {
   const [curTrailer, setCurTrailer] = useState(null)
+  //const [prevTrailer, setPrevTrailer] = useState(null)
 
   useEffect(() => {
     getRandomTrailer()
   },[])
 
+  function getHistory() {
+    let history = localStorage.getItem('history');
+    return JSON.parse(history);
+  }
+
+  function setHistory(history) {
+    localStorage.setItem('history', JSON.stringify(history));
+  }
+
+  function getTrailerByID(id) {
+    return trailers.find((trailer) => trailer.id === id)
+  }
+
   function saveHistory(trailer = null) {
     if (trailer === null) return
-    let historyTrailersId = localStorage.getItem('history');
+    let historyTrailersId = getHistory();
     if (null !== historyTrailersId) {
-      historyTrailersId = JSON.parse(historyTrailersId);
       if (!historyTrailersId.includes(trailer.id)) {
         historyTrailersId.push(trailer.id);
-        localStorage.setItem('history', JSON.stringify(historyTrailersId));
+        setHistory(historyTrailersId)
       }
     } else {
-        localStorage.setItem('history', JSON.stringify([trailer.id]));
+      setHistory([trailer.id]);
     }
   }
 
   function getUserTrailers() {
-    let historyTrailersId = JSON.parse(localStorage.getItem('history'));
+    let historyTrailersId = getHistory();
 
     if (null !== historyTrailersId) {
       let userTrailers = [];
@@ -58,18 +71,28 @@ export const App = () => {
     return Math.floor(Math.random() * max);
   }
 
+  function getPrevTrailer() {
+    let history = getHistory();
+    if (!history) return null;
+    let prevTrailerId = history[history.length - 2],
+        prevTrailer = getTrailerByID(prevTrailerId);
+
+    setCurTrailer(prevTrailer);
+    return prevTrailer;
+  }
+
   return (
     <>
       <Box
         display="flex"
         justifyContent="space-between"
       >
-        <Btn><IoIosArrowBack size={70}/></Btn>
+        <Btn onClick={getPrevTrailer}><IoIosArrowBack size={70}/></Btn>
         <Box width="1280" height="720px">
           {curTrailer &&
           <iframe width="1280" height="720" src={curTrailer.url + '?autoplay=1&&mute=1'} title="YouTube video player" frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen playing={true}></iframe>}
+                  allowFullScreen></iframe>}
         </Box>
         <Btn onClick={getRandomTrailer}><IoIosArrowForward size={70}/></Btn>
       </Box>
