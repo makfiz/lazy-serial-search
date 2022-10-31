@@ -2,15 +2,37 @@ import trailers from "components/utils/test.json";
 import {Box} from "components/utils/Box";
 import Btn from 'components/Btn/Btn'
 import {IoIosArrowBack, IoIosArrowForward} from 'react-icons/io';
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import { fetchTrendingMovies, fetchSearchMovieById } from "./utils/apiServise";
 
 
 export const App = () => {
   const [curTrailer, setCurTrailer] = useState(null)
+  const [curPage, setCurPage] = useState(1)
   //const [prevTrailer, setPrevTrailer] = useState(null)
 
-  useEffect(() => {
-    getRandomTrailer()
+  useEffect( () => {
+    // getRandomTrailer()
+    // async function fetch(pg) {
+    //       try {
+    //   const response = await fetchTrendingMovies(pg)
+    //   console.log(response)
+    // } catch (e) {
+    //   throw new Error(e.message)
+    // }
+    // }
+
+    // fetch(curPage)
+        async function fetch(id) {
+          try {
+      const response = await fetchSearchMovieById(id)
+      console.log(response)
+    } catch (e) {
+      throw new Error(e.message)
+    }
+    }
+
+    fetch(974213)
   },[])
 
   function getHistory() {
